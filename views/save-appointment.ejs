@@ -1,0 +1,79 @@
+<script type="text/javascript">
+  // In case SAILS_LOCALS doesn't exist, set it to an empty dictionary.
+  window.SAILS_LOCALS = window.SAILS_LOCALS || {};
+  <%
+  // This technique is called short-circuiting.  Here's why this works:
+  // ```
+  // false || true  // => true
+  // false || 6  // => 6
+  // undefined || true // => true
+  // undefined || 6 // => 6
+  // ```
+  //
+  // Caveats:
+  // Note that this can have unexpected results if SAILS_LOCALS is something
+  // unexpectedly falsy (like empty string, null, false, 0).  Also note this doesn't
+  // ensure that window.SAILS_LOCALS is a dictionary.  We could check that, but it's
+  // probably ok (also we don't have access to lodash here so I'm mainly being lazy)
+
+  // So the reason why we did that is just to be safe (what if the navigation.ejs
+  // partial is no longer used at some point?  This would throw a weird error that
+  // might make us annoyed or distressed)
+  // Now we can set a property on the window.SAILS_LOCALS dictionary with confidence
+  // that it is(...probably...) a dictionary.  And if it did already exist, we're not
+  //  overriding it (just adding a property to it.)
+  %>
+  window.SAILS_LOCALS.scheduledDateTime = <%- typeof scheduledDateTime !== 'undefined' ? JSON.stringify(scheduledDateTime) : 'null' %>;
+  window.SAILS_LOCALS.customerList = <%- typeof customerList !== 'undefined' ? JSON.stringify(customerList) : 'null' %>;
+  window.SAILS_LOCALS.serviceList = <%- typeof serviceList !== 'undefined' ? JSON.stringify(serviceList) : 'null' %>;
+</script>
+
+
+<div class=" ng-cloak" ng-controller="saveAppointmentPageController as ctrl">
+	
+
+	<div class="row">
+
+		<table style="width: 100%; ">
+			<tr>
+				<td style=" width: 33.33%;">
+					<md-button class="md-raised md-secondary" ng-click="ctrl.onClickGoBack()">Voltar</md-button>
+				</td>
+				<td style=" width: 33.33%;"><div class="center" style="    font-size: 25px;">Horario</div></td>
+				<td style=" width: 33.33%;">
+					<md-button class="md-raised md-primary pull-right" ng-click="ctrl.saveObject()">Salvar</md-button>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div style="margin-top: 10px;" class="row">
+
+
+		<div class="input-field col s6">
+          	<label for="schedule" class="active">Horário Inicio</label>
+			<input id="schedule" type="text" required="required" ng-model="ctrl.scheduledStartTime" readonly="readonly" style="color: black;" />
+        </div>
+
+        <div class="input-field col s6">
+          	<label for="schedule" class="active">Horário Fim</label>
+			<input id="schedule" type="text" required="required" placeholder="Selecione um serviço." ng-model="ctrl.scheduledEndTime" readonly="readonly" style="color: black;" />
+        </div>
+
+		<div class="col s12">
+			<label>Serviço</label>
+			<select id="services" class="form-control" required="required" ng-model="ctrl.newAppointment.service" ng-options="service as service.name for service in ctrl.serviceList track by service.id" ng-change="ctrl.onChangeService()" style="display: inline-block;"></select>
+			
+		</div>
+
+
+		<div class=" col s12"  style="margin-top: 15px;">
+		<label for="customers">Cliente</label>
+			<select id="customers" class="form-control" ng-model="ctrl.newAppointment.customer" ng-options="customer as customer.name for customer in ctrl.customerList track by customer.id" style="display: inline-block;"></select>
+		</div>
+
+
+	</div>
+
+</div>
+

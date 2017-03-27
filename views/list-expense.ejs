@@ -1,0 +1,45 @@
+<div class=" ng-cloak" ng-controller="listExpensePageController">
+	
+
+	<div class="row section" style="margin-bottom: 0px;">
+		<div class="col s12">
+			<p class="left" style="font-size: 25px;margin-bottom: 0px;margin-top: 15px;">Despesas</p>
+			<a class="btn-floating btn-large waves-effect waves-light red right" href="/expenses/new"><i class="material-icons">add</i></a>
+		</div>
+	</div>
+
+	<h4 ng-show="!expenses || expenses.length == 0">Nenhum Resultado Encontrado. Clique <a href="/expenses/new">+</a> para adicionar despesa.</h4>
+
+	<div ng-if="expenses && expenses.length > 0">
+
+		<table>
+			<thead>
+				<th>Nome</th>
+				<th>Valor</th>
+				<th style="width: 55px;"></th>
+				<th style="width: 55px;"></th>
+			</thead>
+
+			<tbody>
+				
+				<tr ng-repeat="expense in expenses">
+					<td>{{ expense.name }}</td>
+					<td>{{ expense.value }}</td>
+					<td>
+						<a ng-click="deleteEntry($event, expense, $index)">
+							<i class="red-text material-icons">delete</i>
+						</a>
+					</td>
+					<td>
+						<a href="/expenses/{{expense.id}}/edit">
+							<i class="material-icons">mode_edit</i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	
+	</div>
+
+</div>

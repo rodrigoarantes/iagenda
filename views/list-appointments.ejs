@@ -1,0 +1,46 @@
+<script type="text/javascript">
+  // In case SAILS_LOCALS doesn't exist, set it to an empty dictionary.
+  window.SAILS_LOCALS = window.SAILS_LOCALS || {};
+  window.SAILS_LOCALS.dateParam = <%- typeof dateParam !== 'undefined' ? JSON.stringify(dateParam) : 'null' %>
+</script>
+
+
+<div class=" ng-cloak" ng-controller="listAppointmentPageController as ctrl">
+	
+
+
+	<div>
+
+
+		<ul class="collection with-header">
+			<li class="collection-header">
+				
+				<div class="center">
+					<a ng-click="ctrl.onClickDay(weekday)" class="waves-effect waves-teal" ng-class="{'btn': weekday.weekDay == ctrl.selectedDay.weekDay, 'btn-flat': weekday.weekDay != ctrl.selectedDay.weekDay}" style="padding: 0 15px;" ng-repeat="weekday in ctrl.weekdays">
+						{{ weekday.weekDayName }}
+					</a>
+				</div>
+				<div class="center" style="position: relative;">
+
+					<input type="date" id="datePicker" class="datepicker" ng-model="ctrl.selectedDate" ng-change="ctrl.onChangeDate($event)" style=" position: absolute; color: transparent; width: 100%; top: 0; height: 27px; left: 0; border: 0; cursor: pointer;">
+					<span style="text-decoration: underline;">
+						<span ng-if="ctrl.selectedDay && ctrl.selectedDay.isToday">Hoje:</span> <span >{{ ctrl.selectedDay.formattedDate }}</span>	
+					</span>
+					
+				</div>
+
+			</li>
+
+			<li class="collection-item" ng-repeat="appointment in ctrl.appointmentList" ng-click="ctrl.onClickAppointmentRow($event, appointment, $index)" ng-class="appointment.rowColorClass">
+
+				<div class="left" style="width: 30px; font-weight: bold;"> 
+					<span class="badge red-text" style="margin-left: 0;">{{appointment.hourAsString}}</span>
+				</div>
+				<span class="title" style="margin-left: 5px;">{{appointment.description}}</span>
+				
+			</li>
+		</ul>
+
+	</div>
+
+</div>

@@ -1,0 +1,69 @@
+<script type="text/javascript">
+  // In case SAILS_LOCALS doesn't exist, set it to an empty dictionary.
+  window.SAILS_LOCALS = window.SAILS_LOCALS || {};
+  <%
+  // This technique is called short-circuiting.  Here's why this works:
+  // ```
+  // false || true  // => true
+  // false || 6  // => 6
+  // undefined || true // => true
+  // undefined || 6 // => 6
+  // ```
+  //
+  // Caveats:
+  // Note that this can have unexpected results if SAILS_LOCALS is something
+  // unexpectedly falsy (like empty string, null, false, 0).  Also note this doesn't
+  // ensure that window.SAILS_LOCALS is a dictionary.  We could check that, but it's
+  // probably ok (also we don't have access to lodash here so I'm mainly being lazy)
+
+  // So the reason why we did that is just to be safe (what if the navigation.ejs
+  // partial is no longer used at some point?  This would throw a weird error that
+  // might make us annoyed or distressed)
+  // Now we can set a property on the window.SAILS_LOCALS dictionary with confidence
+  // that it is(...probably...) a dictionary.  And if it did already exist, we're not
+  //  overriding it (just adding a property to it.)
+  %>
+  window.SAILS_LOCALS.editingCustomer = <%- typeof customer !== 'undefined' ? JSON.stringify(customer) : 'null' %>
+</script>
+
+
+<div class=" ng-cloak" ng-controller="saveCustomerPageController">
+	
+
+	<div class="row">
+
+		<table style="width: 100%; ">
+			<tr>
+				<td style=" width: 33.33%;">
+					<md-button class="md-raised md-secondary" href="/customer/list">Voltar</md-button>
+				</td>
+				<td style=" width: 33.33%;"><div class="center" style="    font-size: 25px;">Clientes</div></td>
+				<td style=" width: 33.33%;">
+					<md-button class="md-raised md-primary pull-right" ng-click="saveCustomer()">Salvar</md-button>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div style="margin-top: 10px;">
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Nome</label>
+			<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nome..." required="required" ng-model="newCustomer.name">
+		</div>
+		<div class="form-group">
+			<label for="telefone1">Telefone 1</label>
+			<input type="text" class="form-control" id="telefone1" placeholder="Telefone 1..." required="required" ng-model="newCustomer.phone1">
+		</div>
+		<div class="form-group">
+			<label for="telefone2">Telefone 2</label>
+			<input type="text" class="form-control" id="telefone2" placeholder="Telefone 2..." ng-model="newCustomer.phone2">
+		</div>
+		<div class="form-group">
+			<label>OBS</label>
+			<textarea class="form-control"  ng-model="newCustomer.comment"></textarea>
+		</div>
+
+	</div>
+
+</div>
