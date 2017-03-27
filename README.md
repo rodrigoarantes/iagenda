@@ -1,3 +1,14 @@
-# beatySaloon
+# iAgenda
 
-a [Sails](http://sailsjs.org) application
+Messing around with Sailsjs
+
+Application Requirements by Module:
+- Login
+
+- Appointments
+
+- Customers
+
+- Services
+
+- Expenses
