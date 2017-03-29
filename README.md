@@ -11,10 +11,10 @@
 
 - **Login (Authentication/Authorization)**
     - Properties:
-        | Field name | required | type | attributes |
-        | ------ | ------ | ------- | ------- |
-        | email | true | string | maxLength: 80 |
-        | password | true | string | minLength: 6, maxLength: 100 |
+        | Field name    | required | type    | attributes                   |
+        | ------------- | -------- | ------- | ---------------------------- |
+        | email         | true     | string  | maxLength: 80                |
+        | password      | true     | string  | minLength: 6, maxLength: 100 |
 
     - Business Details:
         - All Pages require authentication
