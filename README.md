@@ -12,12 +12,6 @@
 - **Login (Authentication/Authorization)**
     - Properties:
 
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
 | Field name    | Required | Type    | Attributes                   |
 | ------------- | -------- | ------- | ---------------------------- |
 | email         | true     | string  | maxLength: 80                |
