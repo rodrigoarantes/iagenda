@@ -24,12 +24,13 @@
       
 - **Appointments**
     - Properties:
-        | Field name | required | type | attributes |
-        | ------ | ------ | ------- | ------- |
-        | scheduledFor | true | dateTime |  |
-        | price | true | decimal | min: 1 |
-        | service | true | entity |  |
-        | customer | true | entity |  |
+    
+    | Field name | required | type | attributes |
+    | ------ | ------ | ------- | ------- |
+    | scheduledFor | true | dateTime |  |
+    | price | true | decimal | min: 1 |
+    | service | true | entity |  |
+    | customer | true | entity |  |
     
     - BusinessDetails:
         Screen:
