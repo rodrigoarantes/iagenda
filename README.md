@@ -1,9 +1,5 @@
 # iAgenda
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
 
 ## Messing around with Sailsjs
 
@@ -43,7 +39,8 @@
       - The URL must show which day the user is viewing so he can bookmark it.
   
 - **Customers**
-  - Properties:
+    - Properties:
+  
     | Field name | required | type | attributes |
     | ------ | ------ | ------- | ------- |
     | name | true | string | minLength: 2, maxLength: 100 |
@@ -60,6 +57,7 @@
 
 - Services
   - Properties:
+  
     | Field name | required | type | attributes |
     | ------ | ------ | ------- | ------- |
     | name | true | string | minLength: 2, maxLength: 50 |
@@ -75,6 +73,7 @@
     
 - Expenses
   - Properties:
+  
     | Field name | required | type | attributes |
     | ------ | ------ | ------- | ------- |
     | name | true | string | maxLength: 80 |
