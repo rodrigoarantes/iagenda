@@ -55,7 +55,7 @@
 
 
 
-- ** Services **
+- **Services**
   - Properties:
   
     | Field name | required | type | attributes |
@@ -71,7 +71,8 @@
     - The landing page for this module will be a place where there will be a search field which will list by latest 15 entries. The search term, in the text field, will scan the column name
     
     
-- ** Expenses **
+- **Expenses**
+
   - Properties:
   
     | Field name | required | type | attributes |
@@ -84,7 +85,7 @@
     - Just a CRUD
     - The landing page for this module will be a place where there will be a search field for the name, and another for the date it was added. It will then list the latest 15 results.
   
-- ** Reports **
+- **Reports**
 
 
 
