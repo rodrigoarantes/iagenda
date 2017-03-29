@@ -8,10 +8,10 @@
 - **Login (Authentication/Authorization)**
     - Properties:
 
-    | Field name    | Required | Type    | Attributes                   |
-    | ------------- | -------- | ------- | ---------------------------- |
-    | email         | true     | string  | maxLength: 80                |
-    | password      | true     | string  | minLength: 6, maxLength: 100 |
+      | Field name    | Required | Type    | Attributes                   |
+      | ------------- | -------- | ------- | ---------------------------- |
+      | email         | true     | string  | maxLength: 80                |
+      | password      | true     | string  | minLength: 6, maxLength: 100 |
 
     - Business Details:
         - All Pages require authentication
@@ -21,12 +21,12 @@
 - **Appointments**
     - Properties:
     
-    | Field name | required | type | attributes |
-    | ------ | ------ | ------- | ------- |
-    | scheduledFor | true | dateTime |  |
-    | price | true | decimal | min: 1 |
-    | service | true | entity |  |
-    | customer | true | entity |  |
+      | Field name | required | type | attributes |
+      | ------ | ------ | ------- | ------- |
+      | scheduledFor | true | dateTime |  |
+      | price | true | decimal | min: 1 |
+      | service | true | entity |  |
+      | customer | true | entity |  |
     
     - BusinessDetails:
         Screen:
