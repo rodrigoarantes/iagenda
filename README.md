@@ -41,12 +41,12 @@
 - **Customers**
     - Properties:
   
-    | Field name | required | type | attributes |
-    | ------ | ------ | ------- | ------- |
-    | name | true | string | minLength: 2, maxLength: 100 |
-    | phone1 | true | string | maxLength: 18 |
-    | phone2 | false | string | maxLength: 18 |
-    | comment | false | string | maxLength: 255 |
+      | Field name | required | type | attributes |
+      | ------ | ------ | ------- | ------- |
+      | name | true | string | minLength: 2, maxLength: 100 |
+      | phone1 | true | string | maxLength: 18 |
+      | phone2 | false | string | maxLength: 18 |
+      | comment | false | string | maxLength: 255 |
       
   - BusinessDetails:
       - Just a CRUD
