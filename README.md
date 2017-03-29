@@ -16,6 +16,11 @@
         | email         | true     | string  | maxLength: 80                |
         | password      | true     | string  | minLength: 6, maxLength: 100 |
 
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
     - Business Details:
         - All Pages require authentication
         - There will be two roles in the system: Admin, and User
