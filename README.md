@@ -3,6 +3,14 @@
 
 ## Messing around with Sailsjs
 
+### Pre-requirements:
+- It needs to be mobile-first. (It will be tested on iphone6)
+- Pay attention to production distribution. It will be evaluated.
+- There are no specific requirements for the technology used on the front-end.
+- It's required that you use either Java or .Net for the backend.
+- APIs must be RESTful.
+- For Java devs. If the application would be real, it would have a small amount of users initially, and the most concerning part would be maintanability, and fast prototyping.
+
 ### Application Requirements by Module:
 
 - **Login (Authentication/Authorization)**
