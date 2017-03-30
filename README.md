@@ -91,7 +91,7 @@
       
   - BusinessDetails:
     - Just a CRUD
-    - The landing page for this module will be a place where there will be a search field for the name, and another for the date it was added. It will then list the latest 15 results.
+    - The landing page for this module will list all expenses for a month selected (there will be a select dropdown with month list)
   
 - **Reports**
 
