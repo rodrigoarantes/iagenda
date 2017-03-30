@@ -18,10 +18,10 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'styles/**/*.css',
+  'styles/dependencies/materialize.min.css',
   'bower_components/angular-material/angular-material.css',
-  'bower_components/materialize/dist/css/materialize.min.css',
-  'bower_components/angular-toastr/dist/angular-toastr.min.css'
-
+  'bower_components/angular-toastr/dist/angular-toastr.min.css',
+  'bower_components/angular-busy/dist/angular-busy.min.css',
 ];
 
 
@@ -43,6 +43,8 @@ var jsFilesToInject = [
 
   'bower_components/angular-toastr/dist/angular-toastr.min.js',
   'bower_components/angular-toastr/dist/angular-toastr.tpls.min.js',
+
+  'bower_components/angular-busy/dist/angular-busy.min.js',
 
   'js/dependencies/lodash.js',
   'js/dependencies/compareTo.module.js',

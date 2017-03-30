@@ -22,6 +22,11 @@ module.exports = {
       min: 1
   	},
 
+    referredTo: {
+      type: 'date',
+      required: true
+    },
+
   	description: {
   		type: 'string'
   	},

@@ -21,6 +21,7 @@
     "jquery": "^3.2.1",
     "angular-toastr": "^2.1.1",
     "materialize": "^0.98.1",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "angular-busy": "^4.1.4"
   }
 }

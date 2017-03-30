@@ -52,10 +52,19 @@
 			<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nome..." required="required" ng-model="newExpense.name">
 		</div>
 
-		<div class="input-field col s12">
+		<div class="col s6">
 			<label for="expenseValue">Valor</label>
 			<input type="number" class="form-control" id="expenseValue" placeholder="Valor..." required="required" ng-model="newExpense.value">
 		</div>
+
+		<div class="col s6" style="margin-bottom: 20px;">
+			<!-- <input type="date" class="form-control" id="referredToDate" required="required" ng-model="newExpense.referredTo"> -->
+			<label for="referredDate">Data Referente</label><br/>
+			<md-datepicker ng-model="newExpense.referredToDate" md-placeholder="Informe a data" md-open-on-focus md-hide-icons="calendar"></md-datepicker>
+			
+		</div>
+
+		
 
 	</div>
 

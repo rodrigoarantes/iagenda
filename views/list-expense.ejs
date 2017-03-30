@@ -1,45 +1,65 @@
-<div class=" ng-cloak" ng-controller="listExpensePageController">
+<div class=" ng-cloak" ng-controller="listExpensePageController as ctrl">
 	
 
 	<div class="row section" style="margin-bottom: 0px;">
 		<div class="col s12">
-			<p class="left" style="font-size: 25px;margin-bottom: 0px;margin-top: 15px;">Despesas</p>
+			<p class="left" style="font-size: 25px;margin-bottom: 0px;margin-top: 15px;">Despesas de</p>
+			<div class="left" style="    margin: 15px 15px 0; ">
+				<select ng-model="ctrl.selectedMonth" style="display: inline-block;" ng-change="ctrl.loadResults()">
+					<option value="0">Janeiro</option>
+					<option value="1">Fevereiro</option>
+					<option value="2">Março</option>
+					<option value="3">Abril</option>
+					<option value="4">Maio</option>
+					<option value="5">Junho</option>
+					<option value="6">Julho</option>
+					<option value="7">Agosto</option>
+					<option value="8">Setembro</option>
+					<option value="9">Outubro</option>
+					<option value="10">Novembro</option>
+					<option value="11">Dezembro</option>
+				</select>
+			</div>
 			<a class="btn-floating btn-large waves-effect waves-light red right" href="/expenses/new"><i class="material-icons">add</i></a>
 		</div>
 	</div>
 
-	<h4 ng-show="!expenses || expenses.length == 0">Nenhum Resultado Encontrado. Clique <a href="/expenses/new">+</a> para adicionar despesa.</h4>
-
-	<div ng-if="expenses && expenses.length > 0">
-
-		<table>
-			<thead>
-				<th>Nome</th>
-				<th>Valor</th>
-				<th style="width: 55px;"></th>
-				<th style="width: 55px;"></th>
-			</thead>
-
-			<tbody>
-				
-				<tr ng-repeat="expense in expenses">
-					<td>{{ expense.name }}</td>
-					<td>{{ expense.value }}</td>
-					<td>
-						<a ng-click="deleteEntry($event, expense, $index)">
-							<i class="red-text material-icons">delete</i>
-						</a>
-					</td>
-					<td>
-						<a href="/expenses/{{expense.id}}/edit">
-							<i class="material-icons">mode_edit</i>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
 	
+
+	<div cg-busy="ctrl.loadingResultsPromise">
+		
+		<h4 ng-show="!ctrl.expenses || ctrl.expenses.length == 0">Nenhum Resultado Encontrado. Clique <a href="/expenses/new">+</a> para adicionar despesa.</h4>
+		<div ng-if="ctrl.expenses && ctrl.expenses.length > 0">
+
+			<md-card md-theme-watch="" ng-repeat="expense in ctrl.expenses">
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">{{ expense.name }} </span>
+
+						<table style="width: 100%;">
+							<tbody>
+								<tr>
+									<td>Valor: {{ expense.value }}</td>
+									<td>Data: {{ ctrl.formatDate(expense.referredTo) }}</td>
+									<td style="width: 45px">
+										<a href="#" ng-click="ctrl.deleteEntry($event, expense, $index)" style="width: 40px; text-align: center;">
+											<i class="red-text material-icons">delete</i>
+										</a>
+									</td>
+									<td style="width: 35px">
+										<a href="/expenses/{{ expense.id }}/edit" style="width: 40px; text-align: center;">
+											<i class="material-icons">mode_edit</i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</md-card-title-text>
+				</md-card-title>
+				
+			</md-card>		
+		</div>
+
 	</div>
 
 </div>

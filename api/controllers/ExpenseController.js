@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var moment = require('moment');
+
 module.exports = {
 
 
@@ -38,29 +40,37 @@ module.exports = {
 
  	find: function(req, res) {
 
+ 		var startDate = req.param('startDate');
+ 		var momentStartDate = moment(startDate, 'YYYY-MM-DD');
+ 		if (_.isUndefined(startDate) || !momentStartDate.isValid()) {
+ 			return res.badRequest('Please provide startDate parameter with the format YYYY-MM-DD');
+ 		}
+
+ 		var endDate = req.param('endDate');
+ 		var momentEndDate = moment(endDate, 'YYYY-MM-DD');
+ 		if (_.isUndefined(endDate) || !momentEndDate.isValid()) {
+ 			return res.badRequest('Please provide endDate parameter with the format YYYY-MM-DD');
+ 		}
+
+ 		if (momentEndDate.isBefore(momentStartDate)) {
+ 			return res.badRequest('Incorrect Use! EndDate must come after StartDate.');
+ 		}
+
  		Expense.count().exec(function (err, totalExpenses) {
 
  			if (err) return res.negotiate(err);
  			if (!totalExpenses) return res.notFound();
 
- 			var searchCriteria = req.param('searchCriteria');
- 			if (!searchCriteria) {
- 				searchCriteria = '';
- 			}
  			Expense.find({
  				where: {
 
- 					or: [
- 					{
- 						name: {
- 							contains: searchCriteria
- 						}
- 					}]
-
+ 					referredTo: {
+ 						'>=': startDate,
+ 						'<=': endDate
+ 					}
  				},
 
  				limit: 20,
- 				skip: req.param('skip'),
  				sort: 'name ASC'
  			}).exec(function (err, expenses) {
 

@@ -1,20 +1,13 @@
 angular.module('brushfire').controller('listExpensePageController', ['$scope', '$http', '$mdDialog', 'toastr', function($scope, $http, $mdDialog, toastr) {
 
-/*
-   ____          _____                _           
-  / __ \        |  __ \              | |          
- | |  | |_ __   | |__) |___ _ __   __| | ___ _ __ 
- | |  | | '_ \  |  _  // _ \ '_ \ / _` |/ _ \ '__|
- | |__| | | | | | | \ \  __/ | | | (_| |  __/ |   
-  \____/|_| |_| |_|  \_\___|_| |_|\__,_|\___|_|   
-                                         
-  */
+  var ctrl = this;
+
   var TOTAL_PER_PAGE = 20;
 
   // Grab the locals 
-  $scope.me = window.SAILS_LOCALS.me;  
-  $scope.loading = false;
-
+  ctrl.me = window.SAILS_LOCALS.me;  
+  ctrl.loading = false;
+  ctrl.selectedMonth = moment().get('month') + "";
 
   loadResults();
 /* 
@@ -27,8 +20,13 @@ angular.module('brushfire').controller('listExpensePageController', ['$scope', '
 
  */
 
-  $scope.loadResults = loadResults;
-  $scope.deleteEntry = deleteEntry;
+  ctrl.loadResults = loadResults;
+  ctrl.deleteEntry = deleteEntry;
+  ctrl.formatDate = formatDate;
+
+  function formatDate(dateAsString) {
+    return moment(dateAsString).format('DD/MM/YYYY');
+  }
 
 
   function deleteEntry(ev, expense, index) {
@@ -54,7 +52,7 @@ angular.module('brushfire').controller('listExpensePageController', ['$scope', '
       method: 'DELETE'
     })
     .then(function onSuccess(sailsResponse) {
-      $scope.expenses.splice(index, 1);
+      ctrl.expenses.splice(index, 1);
       toastr.success('Deletado com sucesso.');
     }).catch(function onError(sailsResponse) {
       // Otherwise, this is some weird unexpected server error. 
@@ -66,38 +64,45 @@ angular.module('brushfire').controller('listExpensePageController', ['$scope', '
   }
 
   function loadResults() {
-    $scope.loading = true;
-    $scope.skip = 0;
+    ctrl.loading = true;
 
-    $http({
+    var selectedMonth = ctrl.selectedMonth;
+    var startDate = moment();
+    startDate.set('month', selectedMonth);
+    startDate.set('date', 1);
+
+    var endDate = moment();
+    endDate.set('month', selectedMonth);
+    endDate.endOf('month');
+
+    ctrl.loadingResultsPromise = $http({
       url: '/expense/find',
       method: 'GET',
       params: {
-        searchCriteria: $scope.searchCriteria,
-        skip: $scope.skip
+        startDate: startDate.format('YYYY-MM-DD'),
+        endDate: endDate.format('YYYY-MM-DD')
       }
     })
     .then(function onSuccess(sailsResponse) {
 
-      $scope.expenses = sailsResponse.data.options.expenses;
-      $scope.totalExpenses = sailsResponse.data.options.totalExpenses;
+      ctrl.expenses = sailsResponse.data.options.expenses;
+      ctrl.totalExpenses = sailsResponse.data.options.totalExpenses;
 
       // Prevents showing markup with no results
-      if ($scope.expenses.length > 0) {
-        $scope.noResults = false;
-        $scope.noMoreExpenses = false;
+      if (ctrl.expenses.length > 0) {
+        ctrl.noResults = false;
+        ctrl.noMoreExpenses = false;
 
       // If on the first pass there are no results show message and hide more results
       } else {
-        $scope.noResults = true;
-        $scope.noMoreExpenses = true;
+        ctrl.noResults = true;
+        ctrl.noMoreExpenses = true;
       }
 
-      if ($scope.expenses.length <= TOTAL_PER_PAGE) {
-        $scope.noMoreExpenses = true;
+      if (ctrl.expenses.length <= TOTAL_PER_PAGE) {
+        ctrl.noMoreExpenses = true;
       }
 
-      $scope.skip = $scope.skip+=TOTAL_PER_PAGE;
 
     }).catch(function onError(sailsResponse) {
 
@@ -106,7 +111,7 @@ angular.module('brushfire').controller('listExpensePageController', ['$scope', '
       console.error('sailsResponse: ', sailsResponse);
     })
   .finally(function eitherWay() {
-    $scope.loading = false;
+    ctrl.loading = false;
   });
 }
 

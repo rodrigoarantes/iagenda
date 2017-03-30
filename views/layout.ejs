@@ -11,11 +11,12 @@
 
   <!--STYLES-->
   <link rel="stylesheet" href="/styles/dependencies/fontawesome.min.css">
+  <link rel="stylesheet" href="/styles/dependencies/materialize.min.css">
   <link rel="stylesheet" href="/styles/dependencies/ng-cloak.css">
   <link rel="stylesheet" href="/styles/importer.css">
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
-  <link rel="stylesheet" href="/bower_components/materialize/dist/css/materialize.min.css">
   <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.min.css">
+  <link rel="stylesheet" href="/bower_components/angular-busy/dist/angular-busy.min.css">
   <!--STYLES END-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -40,6 +41,12 @@
       right: 0;
       height:100px;
       background:#ccc;
+    }
+    .md-datepicker-input {
+      margin: 0! important;
+    }
+    .md-datepicker-input-container.md-datepicker-invalid input {
+      color: rgb(221,44,0);
     }
   </style>
 
@@ -140,6 +147,7 @@
   <script src="/bower_components/moment/min/moment.min.js"></script>
   <script src="/bower_components/angular-toastr/dist/angular-toastr.min.js"></script>
   <script src="/bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+  <script src="/bower_components/angular-busy/dist/angular-busy.min.js"></script>
   <script src="/js/dependencies/lodash.js"></script>
   <script src="/js/dependencies/compareTo.module.js"></script>
   <script src="/js/dependencies/ng-pattern-restrict.js"></script>

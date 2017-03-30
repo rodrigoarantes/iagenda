@@ -8,6 +8,7 @@ angular.module('brushfire').controller('saveExpensePageController', ['$scope', '
 
     if (!$scope.newExpense) {
       $scope.newExpense = {
+        referredToDate: new Date()
       };
     }
   })();
@@ -36,6 +37,8 @@ angular.module('brushfire').controller('saveExpensePageController', ['$scope', '
   	var valid = validate();
 
   	if (valid.isValid) {
+
+      $scope.newExpense.referredTo = moment($scope.newExpense.referredToDate).format('YYYY-MM-DD');
 
   		if ($scope.newExpense.id && $scope.newExpense.id > 0) {
 
@@ -89,6 +92,13 @@ angular.module('brushfire').controller('saveExpensePageController', ['$scope', '
       return {
         isValid: false,
         message: 'Valor é obrigatório. Apenas números positivos.'
+      }
+    }
+
+    if (!$scope.newExpense.referredToDate) {
+      return {
+        isValid: false,
+        message: 'Data Referente é obrigatória.'
       }
     }
 
