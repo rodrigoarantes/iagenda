@@ -9,7 +9,8 @@
 - There are no specific requirements for the technology used on the front-end.
 - It's required that you use either Java or .Net for the backend.
 - APIs must be RESTful.
-- For Java devs: The application would have a small number of users initially. Emphasis will be placed on maintainability and fast prototyping.
+- The application would have a small number of users initially.
+- Emphasis will be placed on maintainability and fast prototyping.
 
 ### Application Requirements by Module:
 
