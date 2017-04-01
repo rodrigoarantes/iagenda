@@ -28,7 +28,8 @@
 
 	<div cg-busy="ctrl.loadingResultsPromise">
 		
-		<h4 ng-show="!ctrl.expenses || ctrl.expenses.length == 0">Nenhum Resultado Encontrado. Clique <a href="/expenses/new">+</a> para adicionar despesa.</h4>
+		<h6 ng-show="!ctrl.expenses || ctrl.expenses.length == 0" class="no-results-container">Nenhum Resultado Encontrado</h6>
+
 		<div ng-if="ctrl.expenses && ctrl.expenses.length > 0">
 
 			<md-card md-theme-watch="" ng-repeat="expense in ctrl.expenses">

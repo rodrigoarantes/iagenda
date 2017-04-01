@@ -10,15 +10,7 @@ angular.module('brushfire').controller('listExpensePageController', ['$scope', '
   ctrl.selectedMonth = moment().get('month') + "";
 
   loadResults();
-/* 
-  _____   ____  __  __   ______               _       
- |  __ \ / __ \|  \/  | |  ____|             | |      
- | |  | | |  | | \  / | | |____   _____ _ __ | |_ ___ 
- | |  | | |  | | |\/| | |  __\ \ / / _ \ '_ \| __/ __|
- | |__| | |__| | |  | | | |___\ V /  __/ | | | |_\__ \
- |_____/ \____/|_|  |_| |______\_/ \___|_| |_|\__|___/
 
- */
 
   ctrl.loadResults = loadResults;
   ctrl.deleteEntry = deleteEntry;

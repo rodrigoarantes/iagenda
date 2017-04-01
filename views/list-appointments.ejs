@@ -9,6 +9,8 @@
 	
 
 
+
+
 	<div>
 
 
@@ -43,4 +45,80 @@
 
 	</div>
 
+
+	<script type="text/ng-template" id="bottom-sheet-list-template.html">
+		<md-bottom-sheet class="md-list md-has-header">
+			<md-subheader ng-cloak>Ações</md-subheader>
+			<md-list ng-cloak>
+				<md-list-item >
+
+
+					<a class="waves-effect btn-large btn-flat blue-text text-darken-2" ng-click="actionSheet.showInfo($event)">
+						<i class="material-icons left blue-text text-darken-2">info</i>Info
+					</a>
+					<a class="waves-effect  btn-large btn-flat red-text text-darken-2" ng-click="actionSheet.deleteAction($event)">
+						<i class="material-icons left red-text text-darken-2">delete</i>Deletar
+					</a>
+
+				</md-list-item>
+			</md-list>
+		</md-bottom-sheet>
+	</script>
+
+
+
+
+	<div style="visibility: hidden">
+		<div class="md-dialog-container" id="myStaticDialog">
+			<md-dialog aria-label="List dialog">
+				<md-dialog-content>
+
+
+					<table style="min-width: 320px; margin-top: 15px;" class="table-in-dialog">
+
+						<tr>
+							<td class="right bold">
+								Serviço:
+							</td>
+							<td colspan="3">
+								{{ ctrl.selectedAppointmentRow.appointment.service.name }}
+							</td>
+						</tr>
+						<tr>
+							<td class="right bold">
+								Horário:
+							</td>
+							<td colspan="3">
+								{{ ctrl.selectedAppointmentRow.startTimeAsString }} - {{ ctrl.selectedAppointmentRow.endTimeAsString }}
+							</td>
+						</tr>
+
+
+						<tr>
+							<td class="right bold">Nome:</td>
+							<td colspan="3">{{ ctrl.selectedAppointmentRow.appointment.customer.name }}</td>
+						</tr>
+						<tr>
+							<td class="right bold">Fone1:</td>
+							<td>{{ ctrl.selectedAppointmentRow.appointment.customer.phone1 }}</td>
+							<td class="right bold" ng-show="ctrl.selectedAppointmentRow.appointment.customer.phone2">Fone2:</td>
+							<td ng-show="ctrl.selectedAppointmentRow.appointment.customer.phone2">{{ ctrl.selectedAppointmentRow.appointment.customer.phone2 }}</td>
+						</tr>
+						<tr ng-if="ctrl.selectedAppointmentRow.appointment.customer.comment">
+							<td class="right bold">Comment:</td>
+							<td colspan="3">{{ ctrl.selectedAppointmentRow.appointment.customer.comment }}</td>
+						</tr>
+
+
+					</table>
+
+				</md-dialog-content>
+				<md-dialog-actions>
+					<md-button ng-click="ctrl.closeDialog()" class="md-primary">Fechar</md-button>
+				</md-dialog-actions>
+			</md-dialog>
+		</div>
+	</div>
+
 </div>
+

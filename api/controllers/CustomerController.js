@@ -66,58 +66,50 @@
 
  	find: function(req, res) {
 
- 		Customer.count({ deleted: 0 }).exec(function (err, totalCustomers) {
+ 		var searchCriteria = req.param('searchCriteria');
+		if (!searchCriteria) {
+			searchCriteria = '';
+		}
+		Customer.find({
+			where: {
 
- 			if (err) return res.negotiate(err);
- 			if (!totalCustomers) return res.notFound();
+			deleted: 0,
+				or: [
+				{
+					name: {
+						contains: searchCriteria
+					}
+				},
+				{
+					phone1: {
+						contains: searchCriteria
+					}
+				},
+				{
+					phone2: {
+						contains: searchCriteria
+					}
+				},
+				{
+					comment: {
+						contains: searchCriteria
+					}
+				}
+				]
 
- 			var searchCriteria = req.param('searchCriteria');
- 			if (!searchCriteria) {
- 				searchCriteria = '';
- 			}
- 			Customer.find({
- 				where: {
+			},
 
-					deleted: 0,
- 					or: [
- 					{
- 						name: {
- 							contains: searchCriteria
- 						}
- 					},
- 					{
- 						phone1: {
- 							contains: searchCriteria
- 						}
- 					},
- 					{
- 						phone2: {
- 							contains: searchCriteria
- 						}
- 					},
- 					{
- 						comment: {
- 							contains: searchCriteria
- 						}
- 					}
- 					]
-
- 				},
-
- 				limit: 20,
- 				skip: req.param('skip')
- 			}).exec(function (err, customers) {
+			limit: 20
+		}).exec(function (err, customers) {
 
 
 
- 				return res.json({
- 					options: {
- 						customers: customers,
- 						totalCustomers: totalCustomers
- 					}
- 				});
- 			});
- 		});
+			return res.json({
+				options: {
+					customers: customers
+				}
+			});
+		});
 
  	}
 

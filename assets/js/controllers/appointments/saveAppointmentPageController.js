@@ -1,4 +1,4 @@
-angular.module('brushfire').controller('saveAppointmentPageController', ['$scope', '$http', '$window', '$mdDialog', 'toastr', function($scope, $http, $window, $mdDialog, toastr) {
+angular.module('brushfire').controller('saveAppointmentPageController', ['$scope', '$http', '$window', '$mdDialog', '$mdDialog', 'toastr', function($scope, $http, $window, $mdDialog, $mdDialog, toastr) {
 
 
   var ctrl = this;
@@ -39,16 +39,56 @@ angular.module('brushfire').controller('saveAppointmentPageController', ['$scope
 
   
 
+  //////////////////////////////////////////
 
-/* 
-  _____   ____  __  __   ______               _       
- |  __ \ / __ \|  \/  | |  ____|             | |      
- | |  | | |  | | \  / | | |____   _____ _ __ | |_ ___ 
- | |  | | |  | | |\/| | |  __\ \ / / _ \ '_ \| __/ __|
- | |__| | |__| | |  | | | |___\ V /  __/ | | | |_\__ \
- |_____/ \____/|_|  |_| |______\_/ \___|_| |_|\__|___/
+  // list of `state` value/display objects
+  ctrl.searchText    = null;
+  ctrl.searchCutomer   = searchCutomer;
+  ctrl.showCustomerInfo = showCustomerInfo;
+  ctrl.closeDialog = closeCustomerInfo;
 
- */
+  function closeCustomerInfo() {
+    $mdDialog.hide();
+  }
+
+  function showCustomerInfo() {
+    $mdDialog.show({
+      contentElement: '#myStaticDialog',
+      parent: angular.element(document.body),
+      clickOutsideToClose: true,
+      escapeToClose: true
+    });
+  }
+
+  // ******************************
+  // Internal methods
+  // ******************************
+
+  /**
+   * Search for states... use $timeout to simulate
+   * remote dataservice call.
+   */
+  function searchCutomer (query) {
+    
+    return $http({
+      url: '/customer/find',
+      method: 'GET',
+      params: {
+        searchCriteria: query
+      }
+    })
+    .then(function onSuccess(sailsResponse) {
+      return sailsResponse.data.options.customers;
+    }).catch(function onError(sailsResponse) {
+        console.error('sailsResponse: ', sailsResponse);
+     });
+    
+  }
+
+
+
+  //////////////
+
 
  ctrl.saveObject = saveObject;
  ctrl.onChangeService = onChangeService;

@@ -1,0 +1,64 @@
+<div class=" ng-cloak" ng-controller="reportsPageController as ctrl">
+	
+
+	<div class="row section" style="margin-bottom: 0px;">
+		<div class="col s12">
+			<p class="center" style="font-size: 25px;margin-bottom: 0px;margin-top: 15px;">Relátorios</p>
+		</div>
+
+
+		
+	</div>
+
+
+	<div cg-busy="ctrl.resultsPromise">
+		
+
+		<div ng-if="ctrl.months && ctrl.months.length > 0">
+
+			<table class="bordered" style="width: 100%;">
+				<thead>
+					<th></th>
+					<th ng-repeat="monthName in ctrl.months">
+						{{ monthName }}
+					</th>
+				</thead>
+
+				<tbody>
+					
+					<tr>
+						<td>Serviços</td>
+						<td ng-repeat="result in ctrl.results">
+							{{ result.numOfServices }}
+						</td>
+					</tr>
+					<tr>
+						<td>Bruto</td>
+						<td ng-repeat="result in ctrl.results">
+							{{ result.totalEarnigs  }}
+						</td>
+					</tr>
+					<tr>
+						<td>Despesas</td>
+						<td ng-repeat="result in ctrl.results">
+							{{ result.totalExpenses  }}
+						</td>
+					</tr>
+					<tr>
+						<td>Liquido</td>
+						<td ng-repeat="result in ctrl.results">
+							{{ result.totalNetEarnigs  }}
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+
+		
+		</div>
+
+	</div>
+
+	
+
+</div>

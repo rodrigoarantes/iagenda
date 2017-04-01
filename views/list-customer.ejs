@@ -6,29 +6,49 @@
 			<p class="left" style="font-size: 25px;margin-bottom: 0px;margin-top: 15px;">Clientes</p>
 			<a class="btn-floating btn-large waves-effect waves-light red right" href="/customers/new"><i class="material-icons">add</i></a>
 		</div>
+
+		<div class="input-field col s7">
+			<label for="exampleInputEmail1">Pesquisar</label>
+			<input type="text" class="form-control" placeholder="Nome..." required="required" ng-model="searchCriteria" style="margin-bottom: 0;">
+		</div>
+		<div class="col s5">
+			<md-button class="md-raised md-primary pull-right" ng-click="loadResults()" style="width: 100%; margin-top: 20px;">Buscar</md-button>
+		</div>
+
+		<div class="col s12">
+			<span class="limited-resultset-info">Apenas 20 resultados são mostrados.</span>
+		</div>
+
 	</div>
 
-	<h4 ng-show="!customers || customers.length == 0">Nenhum Resultado Encontrado. Clique <a href="/customers/new">+</a> para adicionar cliente.</h4>
 
-	<div>
-		<md-card md-theme-watch="" ng-repeat="customer in customers">
-			<md-card-title>
-				<md-card-title-text>
-					<span class="md-headline">{{ customer.name }} - {{ customer.phone1 }}</span>
-					<span class="md-subhead">{{ customer.phone2 }}</span>
-					<span class="md-subhead">{{ customer.comment }}</span>
-				</md-card-title-text>
-			</md-card-title>
-			<md-card-actions layout="row" layout-align="end center">
+	<div cg-busy="resultsPromise">
+		
+		<h4 ng-show="!customers || customers.length == 0" class="no-results-container">Nenhum Resultado Encontrado.</h4>
 
-				<a href="#" ng-click="deleteCustomer($event, customer, $index)" style="width: 40px; text-align: center;">
-					<i class="red-text material-icons">delete</i>
-				</a>
-				<a href="/customers/{{ customer.id }}/edit" style="width: 40px; text-align: center;">
-					<i class="material-icons">mode_edit</i>
-				</a>
-			</md-card-actions>
-		</md-card>
+		<div>
+			<md-card md-theme-watch="" ng-repeat="customer in customers">
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">{{ customer.name }} - {{ customer.phone1 }}</span>
+						<span class="md-subhead">{{ customer.phone2 }}</span>
+						<span class="md-subhead">{{ customer.comment }}</span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="end center">
+
+					<a href="#" ng-click="deleteCustomer($event, customer, $index)" style="width: 40px; text-align: center;">
+						<i class="red-text material-icons">delete</i>
+					</a>
+					<a href="/customers/{{ customer.id }}/edit" style="width: 40px; text-align: center;">
+						<i class="material-icons">mode_edit</i>
+					</a>
+				</md-card-actions>
+			</md-card>
+		</div>
+
 	</div>
+
+	
 
 </div>

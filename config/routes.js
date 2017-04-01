@@ -59,6 +59,7 @@ module.exports.routes = {
   'GET /customers/:id': 'CustomerController.showDetail',
   'GET /customers/:id/edit': 'CustomerController.prepareEdit',
 
+  'GET /reports': 'ExpenseController.reports',
   'GET /expenses': 'ExpenseController.list',
   'GET /expenses/new': 'ExpenseController.prepareNew',
 

@@ -69,7 +69,7 @@ angular.module('brushfire').controller('listServicePageController', ['$scope', '
     $scope.loading = true;
     $scope.skip = 0;
 
-    $http({
+    $scope.resultsPromise = $http({
       url: '/service/find',
       method: 'GET',
       params: {
@@ -80,24 +80,6 @@ angular.module('brushfire').controller('listServicePageController', ['$scope', '
     .then(function onSuccess(sailsResponse) {
 
       $scope.services = sailsResponse.data.options.services;
-      $scope.totalServices = sailsResponse.data.options.totalServices;
-
-      // Prevents showing markup with no results
-      if ($scope.services.length > 0) {
-        $scope.noResults = false;
-        $scope.noMoreservices = false;
-
-      // If on the first pass there are no results show message and hide more results
-      } else {
-        $scope.noResults = true;
-        $scope.noMoreservices = true;
-      }
-
-      if ($scope.services.length <= TOTAL_PER_PAGE) {
-        $scope.noMoreservices = true;
-      }
-
-      $scope.skip = $scope.skip+=TOTAL_PER_PAGE;
 
     }).catch(function onError(sailsResponse) {
 

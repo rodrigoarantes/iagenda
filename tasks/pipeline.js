@@ -17,7 +17,7 @@
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'styles/**/*.css',
+  //'styles/**/*.css',
   'styles/dependencies/materialize.min.css',
   'bower_components/angular-material/angular-material.css',
   'bower_components/angular-toastr/dist/angular-toastr.min.css',
@@ -34,10 +34,10 @@ var jsFilesToInject = [
 
   // Inject all of the rest of our dependencies one by one here:
   'bower_components/jquery/dist/jquery.min.js',
-  'bower_components/angular/angular.js',
-  'bower_components/angular-aria/angular-aria.js',
-  'bower_components/angular-animate/angular-animate.js',
-  'bower_components/angular-material/angular-material.js',
+  'bower_components/angular/angular.min.js',
+  'bower_components/angular-aria/angular-aria.min.js',
+  'bower_components/angular-animate/angular-animate.min.js',
+  'bower_components/angular-material/angular-material.min.js',
   'bower_components/materialize/dist/js/materialize.min.js',
   'bower_components/moment/min/moment.min.js',
 
@@ -46,17 +46,9 @@ var jsFilesToInject = [
 
   'bower_components/angular-busy/dist/angular-busy.min.js',
 
-  'js/dependencies/lodash.js',
-  'js/dependencies/compareTo.module.js',
-  'js/dependencies/ng-pattern-restrict.js',
-
-  // Inject our angular module definition file here
-  // so that it's available for our UI controller
-  // scripts below.
+  'js/dependencies/lodash.min.js',
+  
   'js/app.js',
-
-  // All of the rest of our controllers
-  // will be injected here in no particular order.
   'js/controllers/**/*.js'
 ];
 

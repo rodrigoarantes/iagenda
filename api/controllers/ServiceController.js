@@ -56,44 +56,35 @@ module.exports = {
 
  	find: function(req, res) {
 
- 		Service.count({ deleted: 0 }).exec(function (err, totalServices) {
+ 		var searchCriteria = req.param('searchCriteria');
+		if (!searchCriteria) {
+			searchCriteria = '';
+		}
+		Service.find({
+			where: {
 
- 			if (err) return res.negotiate(err);
- 			if (!totalServices) return res.notFound();
+			deleted: 0,
+				or: [
+				{
+					name: {
+						contains: searchCriteria
+					}
+				}]
 
- 			var searchCriteria = req.param('searchCriteria');
- 			if (!searchCriteria) {
- 				searchCriteria = '';
- 			}
- 			Service.find({
- 				where: {
+			},
 
-					deleted: 0,
- 					or: [
- 					{
- 						name: {
- 							contains: searchCriteria
- 						}
- 					}]
-
- 				},
-
- 				limit: 20,
- 				skip: req.param('skip'),
- 				sort: 'price ASC'
- 			}).exec(function (err, services) {
+			limit: 20,
+			sort: 'name ASC'
+		}).exec(function (err, services) {
 
 
 
- 				return res.json({
- 					options: {
- 						services: services,
- 						totalServices: totalServices
- 					}
- 				});
- 			});
- 		});
-
+			return res.json({
+				options: {
+					services: services
+				}
+			});
+		});
  	}
 	
 };

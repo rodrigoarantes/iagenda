@@ -1,10 +1,4 @@
-angular.module('brushfire', ['ngMaterial', 'toastr', 'cgBusy', 'compareTo', 'ngPatternRestrict'])
-  .config(['$sceDelegateProvider', function($sceDelegateProvider) {
-    $sceDelegateProvider.resourceUrlWhitelist([
-      'self',
-      '*://www.youtube.com/**'
-    ]);
-  }])
+angular.module('brushfire', ['ngMaterial', 'toastr', 'cgBusy'])
   .config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
 
     // Example of a French localization.

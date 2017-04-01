@@ -68,8 +68,52 @@
 
 
 		<div class=" col s12"  style="margin-top: 15px;">
-		<label for="customers">Cliente</label>
-			<select id="customers" class="form-control" ng-model="ctrl.newAppointment.customer" ng-options="customer as customer.name for customer in ctrl.customerList track by customer.id" style="display: inline-block;"></select>
+		  <!-- <label for="customers">Cliente</label> -->
+			<!-- <select id="customers" class="form-control" ng-model="ctrl.newAppointment.customer" ng-options="customer as customer.name for customer in ctrl.customerList track by customer.id" style="display: inline-block;"></select> -->
+
+      <form ng-submit="$event.preventDefault()" name="searchForm">
+        <md-autocomplete flex="" required="" md-input-name="autocompleteField" md-no-cache="ctrl.noCache" md-selected-item="ctrl.newAppointment.customer" md-search-text="ctrl.searchText" md-items="customer in ctrl.searchCutomer(ctrl.searchText)" md-item-text="customer.name" md-floating-label="Cliente">
+          <md-item-template>
+            <span md-highlight-text="ctrl.searchText">{{customer.name}}</span>
+          </md-item-template>
+        </md-autocomplete>
+
+        <i class="material-icons" style="cursor: pointer; position: relative; top: -50px; color: #3f51b5;" ng-show="ctrl.newAppointment.customer" ng-click="ctrl.showCustomerInfo()">info_outline</i>
+      </form>
+
+
+      <div style="visibility: hidden">
+        <div class="md-dialog-container" id="myStaticDialog">
+          <md-dialog aria-label="List dialog">
+            <md-dialog-content>
+              
+
+              <table style="min-width: 320px;">
+                <tr>
+                  <td class="right bold">Nome:</td>
+                  <td colspan="3">{{ ctrl.newAppointment.customer.name }}</td>
+                </tr>
+                <tr>
+                  <td class="right bold">Fone1:</td>
+                  <td>{{ ctrl.newAppointment.customer.phone1 }}</td>
+                  <td class="right bold">Fone2:</td>
+                  <td>{{ ctrl.newAppointment.customer.phone2 || '' }}</td>
+                </tr>
+                <tr ng-if="ctrl.newAppointment.customer.comment">
+                  <td class="right bold">Comment:</td>
+                  <td colspan="3">{{ ctrl.newAppointment.customer.comment }}</td>
+                </tr>
+              </table>
+
+            </md-dialog-content>
+            <md-dialog-actions>
+              <md-button ng-click="ctrl.closeDialog()" class="md-primary">Fechar</md-button>
+            </md-dialog-actions>
+          </md-dialog>
+        </div>
+      </div>
+      
+
 		</div>
 
 

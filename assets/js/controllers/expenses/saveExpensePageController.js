@@ -10,21 +10,13 @@ angular.module('brushfire').controller('saveExpensePageController', ['$scope', '
       $scope.newExpense = {
         referredToDate: new Date()
       };
+    } else {
+      $scope.newExpense.referredToDate = moment($scope.newExpense.referredTo).toDate();
     }
   })();
 
   
 
-
-/* 
-  _____   ____  __  __   ______               _       
- |  __ \ / __ \|  \/  | |  ____|             | |      
- | |  | | |  | | \  / | | |____   _____ _ __ | |_ ___ 
- | |  | | |  | | |\/| | |  __\ \ / / _ \ '_ \| __/ __|
- | |__| | |__| | |  | | | |___\ V /  __/ | | | |_\__ \
- |_____/ \____/|_|  |_| |______\_/ \___|_| |_|\__|___/
-
- */
 
  $scope.save = save;
 
@@ -38,7 +30,7 @@ angular.module('brushfire').controller('saveExpensePageController', ['$scope', '
 
   	if (valid.isValid) {
 
-      $scope.newExpense.referredTo = moment($scope.newExpense.referredToDate).format('YYYY-MM-DD');
+      $scope.newExpense.referredTo = moment($scope.newExpense.referredToDate).format('YYYY-MM-DD HH:mm:ss');
 
   		if ($scope.newExpense.id && $scope.newExpense.id > 0) {
 

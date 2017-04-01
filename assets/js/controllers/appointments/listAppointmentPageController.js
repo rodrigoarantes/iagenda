@@ -1,15 +1,6 @@
-angular.module('brushfire').controller('listAppointmentPageController', ['$scope', '$http', '$mdDialog', 'toastr', function($scope, $http, $mdDialog, toastr) {
+angular.module('brushfire').controller('listAppointmentPageController', ['$scope', '$http', '$mdDialog', '$mdBottomSheet', '$mdDialog', 'toastr', function($scope, $http, $mdDialog, $mdBottomSheet, $mdDialog, toastr) {
 
-/*
-   ____          _____                _           
-  / __ \        |  __ \              | |          
- | |  | |_ __   | |__) |___ _ __   __| | ___ _ __ 
- | |  | | '_ \  |  _  // _ \ '_ \ / _` |/ _ \ '__|
- | |__| | | | | | | \ \  __/ | | | (_| |  __/ |   
-  \____/|_| |_| |_|  \_\___|_| |_|\__,_|\___|_|   
-                                                  
-                                                  
-  */
+
 
   var ctrl = this;
   ctrl.dateParam = window.SAILS_LOCALS.dateParam;
@@ -38,41 +29,60 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
       prepareHeader(momentDateParam);
     } else {
       toastr.error("A data informada é inválida.");
-    }
-    
+    }    
   })();
 
-
-/* 
-  _____   ____  __  __   ______               _       
- |  __ \ / __ \|  \/  | |  ____|             | |      
- | |  | | |  | | \  / | | |____   _____ _ __ | |_ ___ 
- | |  | | |  | | |\/| | |  __\ \ / / _ \ '_ \| __/ __|
- | |__| | |__| | |  | | | |___\ V /  __/ | | | |_\__ \
- |_____/ \____/|_|  |_| |______\_/ \___|_| |_|\__|___/
-
- */
 
   this.getResults = getResults;
   this.onClickAppointmentRow = onClickAppointmentRow
   this.onClickDay = onClickDay;
   this.onChangeDate = onChangeDate;
-  this.onClickAppointmentRow = onClickAppointmentRow;
+  this.showAppointmentInfo = showAppointmentInfo;
+  this.closeDialog = closeDialog;
+
+  function closeDialog() {
+    $mdDialog.hide();
+  }
+
+  function showListBottomSheet($event, appointmentRow, index) {
+
+    ctrl.selectedAppointmentRow = appointmentRow;
+    ctrl.selectedAppointmentIndex = index;
+
+    $mdBottomSheet.show({
+      templateUrl: 'bottom-sheet-list-template.html',
+      controller: 'listAppointmentBottomSheetController',
+      controllerAs: 'actionSheet'
+    }).then(function(clickedItem) {
+      if (clickedItem == 'delete') {
+        deleteAppointment($event, appointmentRow, index);
+      } else {
+        showAppointmentInfo($event, appointmentRow, index);
+      }
+    });
+  }
+
 
   var datePicker = $('#datePicker');
 
+  function showAppointmentInfo($event, appointmentRow, index) {
+    $mdDialog.show({
+      contentElement: '#myStaticDialog',
+      parent: angular.element(document.body),
+      clickOutsideToClose: true,
+      escapeToClose: true
+    });
+  }
+
 
   function onClickAppointmentRow($event, appointmentRow, index) {
-
     if (appointmentRow.appointment && appointmentRow.appointment.id) {
-      // delete
-      deleteAppointment($event, appointmentRow, index);
+      showListBottomSheet($event, appointmentRow, index);
     } else {
       // create new
       var selectedMoment = moment(ctrl.selectedDay.formattedDateParam + " " + appointmentRow.hourAsString, "YYYY-MM-DD HH:mm")
       window.location = "/appointments/new?scheduledDateTime=" + selectedMoment.format('YYYY-MM-DD HH:mm');
     }
-
   }
 
   function onChangeDate(event) {
@@ -112,8 +122,12 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
         }
 
         var numberOfSessions = 1;
+        var endTimeAsString = null;
+        var startTimeAsString = null;
         if (appointment) {
           numberOfSessions = appointment.service.numberOfSessions;
+          startTimeAsString = moment(appointment.scheduledFor, 'YYYY-MM-DD HH:mm').format('HH:mm');
+          endTimeAsString = moment(appointment.scheduledFor, 'YYYY-MM-DD HH:mm').set('minute', numberOfSessions * 30).format('HH:mm');
         }
 
         var parcialAppointmentIndex = appointmentIndex;
@@ -126,6 +140,8 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
 
           var object = {
             hourAsString: sessionHour + ':' + sessionMinutes,
+            startTimeAsString: startTimeAsString,
+            endTimeAsString: endTimeAsString,
             hour: sessionHour,
             minutes: sessionMinutes,
             appointment: appointment,
@@ -175,7 +191,7 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
     // Appending dialog to document.body to cover sidenav in docs app
     var confirm = $mdDialog.confirm()
           .title('Você tem certeza que quer deletar?')
-          .ariaLabel('Deleting Appointment ' + appointmentRow.description)
+          .ariaLabel('Deleting Appointment ')
           .targetEvent(ev)
           .ok('Sim')
           .cancel('Não');
@@ -253,7 +269,7 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
     .then(function onSuccess(sailsResponse) {
 
 
-      let indexes = getIndexesForAppointmentId(id);
+      var indexes = getIndexesForAppointmentId(id);
       indexes.forEach(function (elIndex) {
         ctrl.appointmentList[elIndex].appointment = null;
         ctrl.appointmentList[elIndex].description = null;
@@ -315,6 +331,24 @@ function getIndexesForAppointmentId(appointmentId) {
 
 }
 
+}]);
+
+
+
+angular.module('brushfire').controller('listAppointmentBottomSheetController', ['$http', '$mdBottomSheet', function($scope, $mdBottomSheet) {
+
+
+  var actionSheet = this;
+  actionSheet.showInfo = showInfo;
+  actionSheet.deleteAction = deleteAction;
+
+  function showInfo() {
+    $mdBottomSheet.hide('info');
+  }
+
+  function deleteAction() {
+    $mdBottomSheet.hide('delete');
+  }
 
 
 }]);
