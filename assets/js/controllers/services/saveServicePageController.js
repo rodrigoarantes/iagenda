@@ -1,6 +1,8 @@
 angular.module('brushfire').controller('saveServicePageController', ['$scope', '$http', '$window', 'toastr', function($scope, $http, $window, toastr) {
 
 
+  $scope.INCREMENTAL_MINUTES = 15;
+  var AN_HOUR_IN_MIN = 60;
 
   (function init() {
     $scope.me = window.SAILS_LOCALS.me;
@@ -27,12 +29,12 @@ angular.module('brushfire').controller('saveServicePageController', ['$scope', '
  */
 
  $scope.save = save;
+ $scope.onChangeNumberOfSessions = onChangeNumberOfSessions;
+ onChangeNumberOfSessions();
 
- $scope.getNumberOfHoursForNumberOfSessions = function () {
-  return Math.floor(($scope.newService.numberOfSessions * 30) / 60);
- }
- $scope.getNumberOfMinutesForNumberOfSessions = function () {
-  return ($scope.newService.numberOfSessions * 30) % 60;
+ function onChangeNumberOfSessions() {
+    $scope.sessionDurationHours = Math.floor(($scope.newService.numberOfSessions * $scope.INCREMENTAL_MINUTES) / AN_HOUR_IN_MIN);
+    $scope.sessionDurationMinutes = ($scope.newService.numberOfSessions * $scope.INCREMENTAL_MINUTES) % AN_HOUR_IN_MIN;
  }
 
 

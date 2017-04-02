@@ -7,23 +7,20 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
 
   this.myDate = new Date();
   this.isOpen = false;
-  this.hahaha = "rodrigo";
 
-  var startingTime = 8;
-  var endingTime = 22;
-  
+  var STARTING_TIME = 8;
+  var ENDING_TIME = 22;
+  var INCREMENTAL_MINUTES = 15;
+  var AN_HOUR_IN_MIN = 60;
+
+  var datePicker = $('#datePicker');
 
   // Grab the locals 
   this.me = window.SAILS_LOCALS.me;
-  
-  this.loading = false;
-  this.noResults = false;
-  this.noMoreTutorials = false;
   this.selectedDate = null;
 
 
   (function init() {
-
     var momentDateParam = moment(ctrl.dateParam, 'YYYY-MM-DD');
     if (momentDateParam && momentDateParam.isValid()) {
       prepareHeader(momentDateParam);
@@ -63,8 +60,6 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
   }
 
 
-  var datePicker = $('#datePicker');
-
   function showAppointmentInfo($event, appointmentRow, index) {
     $mdDialog.show({
       contentElement: '#myStaticDialog',
@@ -102,13 +97,14 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
   function prepareResults() {
 
     var appointmentList = [];
-    var currentHour = startingTime;
+    var currentHour = STARTING_TIME;
     var appointmentIndex = 0;
     var evenColor = true;
-    while(currentHour <= endingTime) {
+
+    while (currentHour <= ENDING_TIME) {
 
         var hours = parseInt(currentHour);
-        var minutes = (currentHour % hours) * 60;
+        var minutes = (currentHour % hours) * AN_HOUR_IN_MIN;
 
         var appointment = getAppointmentScheduledFor(hours, minutes);
         var rowClass = null;
@@ -126,16 +122,16 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
         var startTimeAsString = null;
         if (appointment) {
           numberOfSessions = appointment.service.numberOfSessions;
-          startTimeAsString = moment(appointment.scheduledFor, 'YYYY-MM-DD HH:mm').format('HH:mm');
-          endTimeAsString = moment(appointment.scheduledFor, 'YYYY-MM-DD HH:mm').set('minute', numberOfSessions * 30).format('HH:mm');
+          startTimeAsString = moment(appointment.scheduledFor).format('HH:mm');
+          endTimeAsString = moment(appointment.scheduledFor).add(numberOfSessions * INCREMENTAL_MINUTES, 'minute').format('HH:mm');
         }
 
         var parcialAppointmentIndex = appointmentIndex;
         for (var i = 0; i < numberOfSessions; i++) {
 
-          var minutesResult = minutes + (30 * i);
-          var sessionHour = (hours + parseInt(minutesResult / 60));
-          var sessionMinutes = (minutesResult % 60 == 0 ? '00' : '30');
+          var minutesResult = minutes + (INCREMENTAL_MINUTES * i);
+          var sessionHour = (hours + parseInt(minutesResult / AN_HOUR_IN_MIN));
+          var sessionMinutes = (minutesResult % AN_HOUR_IN_MIN == 0 ? '00' : minutesResult % AN_HOUR_IN_MIN);
 
 
           var object = {
@@ -161,7 +157,7 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
         }
 
         
-        currentHour += 0.5;
+        currentHour += (INCREMENTAL_MINUTES / AN_HOUR_IN_MIN);
         ++appointmentIndex;
     }
     ctrl.appointmentList = appointmentList;
@@ -289,7 +285,7 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
 
   function getResults(momentDate) {
 
-    ctrl.loading = true;
+    
     ctrl.skip = 0;
 
     $http({
@@ -319,18 +315,17 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
 // HELPERS
 //////////////////
 
-function getIndexesForAppointmentId(appointmentId) {
+  function getIndexesForAppointmentId(appointmentId) {
 
-  var indexes = [];
-  ctrl.appointmentList.forEach(function (item, index) {
-    if (item.appointment && item.appointment.id == appointmentId) {
-      indexes.push(index);
-    }
-  });
-  return indexes;
+    var indexes = [];
+    ctrl.appointmentList.forEach(function (item, index) {
+      if (item.appointment && item.appointment.id == appointmentId) {
+        indexes.push(index);
+      }
+    });
+    return indexes;
 
-}
-
+  }
 }]);
 
 

@@ -96,8 +96,8 @@
                 <tr>
                   <td class="right bold">Fone1:</td>
                   <td>{{ ctrl.newAppointment.customer.phone1 }}</td>
-                  <td class="right bold">Fone2:</td>
-                  <td>{{ ctrl.newAppointment.customer.phone2 || '' }}</td>
+                  <td class="right bold" ng-if="ctrl.newAppointment.customer.phone2">Fone2:</td>
+                  <td ng-if="ctrl.newAppointment.customer.phone2">{{ ctrl.newAppointment.customer.phone2 }}</td>
                 </tr>
                 <tr ng-if="ctrl.newAppointment.customer.comment">
                   <td class="right bold">Comment:</td>

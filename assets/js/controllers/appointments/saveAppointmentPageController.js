@@ -2,6 +2,7 @@ angular.module('brushfire').controller('saveAppointmentPageController', ['$scope
 
 
   var ctrl = this;
+  var INCREMENTAL_MINUTES = 15;
   ctrl.newAppointment = {};
 
   (function init() {
@@ -166,7 +167,7 @@ angular.module('brushfire').controller('saveAppointmentPageController', ['$scope
   }
 
   function onChangeService() {
-    ctrl.momentScheduledEndDateTime = angular.copy(ctrl.momentScheduledDateTime).add('minute', ctrl.newAppointment.service.numberOfSessions * 30);
+    ctrl.momentScheduledEndDateTime = angular.copy(ctrl.momentScheduledDateTime).add('minute', ctrl.newAppointment.service.numberOfSessions * INCREMENTAL_MINUTES);
     ctrl.scheduledEndTime = ctrl.momentScheduledEndDateTime.format('HH:mm');
   }
 

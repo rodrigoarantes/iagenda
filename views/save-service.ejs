@@ -54,12 +54,13 @@
 
 		<div class="input-field col s4">
 			<label for="telefone1">Número de Sessões</label>
-			<input type="number" class="form-control" id="sessions" required="required" ng-model="newService.numberOfSessions">
+			<input type="number" class="form-control" id="sessions" required="required" ng-model="newService.numberOfSessions" ng-change="onChangeNumberOfSessions()">
 		</div>
 		<div class="input-field col s8" style="margin-top: 23px;">
+
 			
 			<span ng-if="newService.numberOfSessions > 0 && newService.numberOfSessions <= 20">
-				Duração de <span ng-if="newService.numberOfSessions > 1">{{ getNumberOfHoursForNumberOfSessions() }} h</span> <span ng-if="(newService.numberOfSessions * 30) % 60 != 0">{{ getNumberOfMinutesForNumberOfSessions() }} min</span>
+				Duração de <span ng-if="sessionDurationHours > 0">{{ sessionDurationHours }} h</span> <span ng-if="sessionDurationMinutes > 0">{{ sessionDurationMinutes }} min</span>
 			</span>
 
 			<span ng-if="newService.numberOfSessions <= 0">Informe um valor maior que zero.</span>

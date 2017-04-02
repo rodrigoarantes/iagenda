@@ -115,11 +115,12 @@ module.exports = {
  			return res.badRequest('Please provide endDateTime parameter with the format YYYY-MM-DD HH:mm.');
  		}
 
+ 		sails.log(startDateTime);
+ 		sails.log(endDateTime);
  		var sql = 'SELECT count(1) as overlapps from appointment a ' +
-				  'INNER JOIN service s ON a.service = s.id ' +
-				  'WHERE (? > a.scheduledFor and ? < DATE_ADD(a.scheduledFor, INTERVAL s.numberOfSessions * 30 MINUTE)) ' +
-				  'OR (? > a.scheduledFor and ? < DATE_ADD(a.scheduledFor, INTERVAL s.numberOfSessions * 30 MINUTE))';
- 		Appointment.query(sql, [ startDateTime, startDateTime, endDateTime, endDateTime ] ,function(err, rawResult) {
+				  'INNER JOIN service s ON a.service = s.id '+
+				  'WHERE a.scheduledFor >= ? and DATE_ADD(a.scheduledFor, INTERVAL s.numberOfSessions * 15 MINUTE) <= ? ';
+ 		Appointment.query(sql, [ startDateTime, endDateTime ] ,function(err, rawResult) {
 		  if (err) { return res.serverError(err); }
 
 		  sails.log(rawResult);
