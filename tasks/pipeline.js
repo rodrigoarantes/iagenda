@@ -31,7 +31,6 @@ var jsFilesToInject = [
 
   // Don't load sails.io.js dependency here
   // (because we use HTML attributes to configure it)
-
   // Inject all of the rest of our dependencies one by one here:
   'bower_components/jquery/dist/jquery.min.js',
   'bower_components/angular/angular.min.js',
