@@ -17,16 +17,16 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
-  // models: {
-  //   connection: 'productionPostgresqlServer'
-  // },
-  // connections: {
-  //   productionPostgresqlServer: {
-  //     adapter: 'sails-postgresql',
-  //     url: process.env.DATABASE_URL,
-  //     ssl: true
-  //   } 
-  // }
+  models: {
+    connection: 'productionPostgresqlServer'
+  },
+  connections: {
+    productionPostgresqlServer: {
+      adapter: 'sails-postgresql',
+      url: process.env.DATABASE_URL,
+      ssl: true
+    } 
+  }
   // models: {
   //   connection: 'someMysqlServer'
   // },
