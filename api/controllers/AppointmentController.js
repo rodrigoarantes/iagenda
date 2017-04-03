@@ -117,9 +117,12 @@ module.exports = {
 
  		sails.log(startDateTime);
  		sails.log(endDateTime);
- 		var sql = 'SELECT count(1) as overlapps from appointment a ' +
-				  'INNER JOIN service s ON a.service = s.id '+
-				  'WHERE a.scheduledFor >= ? and DATE_ADD(a.scheduledFor, INTERVAL s.numberOfSessions * 15 MINUTE) <= ? ';
+ 		// var sql = 'SELECT count(1) as overlapps from appointment a ' +
+			// 	  'INNER JOIN service s ON a.service = s.id '+
+			// 	  'WHERE a.scheduledFor >= ? and DATE_ADD(a.scheduledFor, INTERVAL s.numberOfSessions * 15 MINUTE) <= ? ';
+		var sql = 'SELECT count(1) as overlapps from appointment a ' +
+			  'INNER JOIN service s ON a.service = s.id '+
+			  'WHERE a."scheduledFor" >= ? and (a."scheduledFor" + s."numberOfSessions" * interval \'15 MINUTE\') <= ? ';
  		Appointment.query(sql, [ startDateTime, endDateTime ] ,function(err, rawResult) {
 		  if (err) { return res.serverError(err); }
 
