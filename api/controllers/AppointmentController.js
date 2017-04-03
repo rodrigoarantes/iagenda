@@ -91,6 +91,10 @@ module.exports = {
 	    	if (err) return res.negotiate;
 	    	if (numberOfEntries && numberOfEntries > 0) return res.badRequest('Já existe horário marcado na hora informado.');
 
+	    	if (!jsonObject.service) return res.badRequest('Service object is required when creating an appointment.');
+
+	    	jsonObject.scheduledForEnd = moment(jsonObject.scheduledFor, 'YYYY-MM-DD HH:mm').add('minute', jsonObject.service.numberOfSessions * 15).format('YYYY-MM-DD HH:mm');
+
 	    	Appointment.create(jsonObject).exec(function(err, createdObject){
 	    		if (err) return res.negotiate(err);
 
@@ -120,21 +124,40 @@ module.exports = {
  		// var sql = 'SELECT count(1) as overlapps from appointment a ' +
 			// 	  'INNER JOIN service s ON a.service = s.id '+
 			// 	  'WHERE a.scheduledFor >= ? and DATE_ADD(a.scheduledFor, INTERVAL s.numberOfSessions * 15 MINUTE) <= ? ';
-		var sql = 'SELECT count(1) as overlapps from appointment a ' +
-			  'INNER JOIN service s ON a.service = s.id '+
-			  'WHERE a."scheduledFor" >= ? and a."scheduledFor" + s."numberOfSessions"' + " * INTERVAL '15 MINUTE' <= ? ";
-		sails.log(sql);
- 		Appointment.query(sql, [ startDateTime, endDateTime ] ,function(err, rawResult) {
-		  if (err) { return res.serverError(err); }
+		// var sql = 'SELECT count(1) as overlapps from appointment a ' +
+		// 	  'INNER JOIN service s ON a.service = s.id '+
+		// 	  'WHERE a."scheduledFor" >= ? and a."scheduledFor" + s."numberOfSessions"' + " * INTERVAL '15 MINUTE' <= ? ";
+		// sails.log(sql);
+ 	// 	Appointment.query(sql, [ startDateTime, endDateTime ] ,function(err, rawResult) {
+		//   if (err) { return res.serverError(err); }
 
-		  sails.log(rawResult);
-		  return res.json({
+		//   sails.log(rawResult);
+		//   return res.json({
+ 	// 			options: {
+ 	// 				hasOverlappingTime: (rawResult && rawResult.length > 0 ? rawResult[0].overlapps : 0)
+ 	// 			}
+ 	// 		});
+
+		// });
+
+		Appointment.count({
+ 			where: {
+ 				deleted: 0,
+ 				scheduledFor: {
+ 					'>=': startDateTime,
+ 				},
+ 				scheduledForEnd: {
+ 					'<=': endDateTime,
+ 				}
+ 			}
+ 		})
+ 		.exec(function (err, appointmentsCount) {
+ 			return res.json({
  				options: {
- 					hasOverlappingTime: (rawResult && rawResult.length > 0 ? rawResult[0].overlapps : 0)
+ 					hasOverlappingTime: (appointmentsCount || 0)
  				}
  			});
-
-		});
+ 		});
 
  	},
 

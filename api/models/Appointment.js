@@ -14,6 +14,11 @@ module.exports = {
 		required: true
  	},
 
+ 	scheduledForEnd: {
+		type: 'datetime',
+		required: true
+ 	},
+
  	price: {
  		type: 'float',
  		required: true,
