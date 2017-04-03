@@ -122,8 +122,8 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
         var startTimeAsString = null;
         if (appointment) {
           numberOfSessions = appointment.service.numberOfSessions;
-          startTimeAsString = moment(appointment.scheduledFor).format('HH:mm');
-          endTimeAsString = moment(appointment.scheduledFor).add(numberOfSessions * INCREMENTAL_MINUTES, 'minute').format('HH:mm');
+          startTimeAsString = moment.utc(appointment.scheduledFor).format('HH:mm');
+          endTimeAsString = moment.utc(appointment.scheduledFor).add(numberOfSessions * INCREMENTAL_MINUTES, 'minute').format('HH:mm');
         }
 
         var parcialAppointmentIndex = appointmentIndex;
@@ -169,7 +169,7 @@ angular.module('brushfire').controller('listAppointmentPageController', ['$scope
       for (var i = 0; i < ctrl.appointments.length; i++) {
         var app = ctrl.appointments[i];
 
-        var momentObject = moment(app.scheduledFor);
+        var momentObject = moment.utc(app.scheduledFor);
         var hour = momentObject.get('hour');
         var minutes = momentObject.get('minute');
 
