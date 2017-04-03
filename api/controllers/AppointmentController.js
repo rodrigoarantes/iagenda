@@ -122,7 +122,8 @@ module.exports = {
 			// 	  'WHERE a.scheduledFor >= ? and DATE_ADD(a.scheduledFor, INTERVAL s.numberOfSessions * 15 MINUTE) <= ? ';
 		var sql = 'SELECT count(1) as overlapps from appointment a ' +
 			  'INNER JOIN service s ON a.service = s.id '+
-			  'WHERE a."scheduledFor" >= ? and (a."scheduledFor" + s."numberOfSessions" * interval \'15 MINUTE\') <= ? ';
+			  'WHERE a.' + '"scheduledFor" ' + '>= ? and (a.' + '"scheduledFor" + s."numberOfSessions"' + " * interval '15 MINUTE') <= ? ";
+		sails.log(sql);
  		Appointment.query(sql, [ startDateTime, endDateTime ] ,function(err, rawResult) {
 		  if (err) { return res.serverError(err); }
 
