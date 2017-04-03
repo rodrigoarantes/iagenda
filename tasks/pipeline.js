@@ -40,14 +40,10 @@ var jsFilesToInject = [
   'bower_components/angular-material/angular-material.min.js',
   'bower_components/materialize/dist/js/materialize.min.js',
   'bower_components/moment/min/moment.min.js',
-
   'bower_components/angular-toastr/dist/angular-toastr.min.js',
   'bower_components/angular-toastr/dist/angular-toastr.tpls.min.js',
-
   'bower_components/angular-busy/dist/angular-busy.min.js',
-
   'js/dependencies/lodash.min.js',
-  
   'js/app.js',
   'js/controllers/**/*.js'
 ];
