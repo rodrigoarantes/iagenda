@@ -69,7 +69,7 @@ angular.module('brushfire').controller('listServicePageController', ['$scope', '
     $scope.loading = true;
     $scope.skip = 0;
 
-    $scope.resultsPromise = $http({
+    $http({
       url: '/service/find',
       method: 'GET',
       params: {

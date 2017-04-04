@@ -51,7 +51,7 @@ angular.module('brushfire').controller('listCustomerPageController', ['$scope', 
 
   function loadResults() {
 
-    $scope.resultsPromise = $http({
+    $http({
       url: '/customer/find',
       method: 'GET',
       params: {

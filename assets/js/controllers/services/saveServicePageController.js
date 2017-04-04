@@ -50,33 +50,22 @@ angular.module('brushfire').controller('saveServicePageController', ['$scope', '
   		if ($scope.newService.id && $scope.newService.id > 0) {
 
 
-        $http.put('/service/' + $scope.newService.id, $scope.newService)
-          .then(function onSuccess(sailsResponse) {
+        $http.put('/service/' + $scope.newService.id, $scope.newService).then(function onSuccess(sailsResponse) {
 
-            toastr.success('Serviço atualiado com successo.');
-            $window.location.href = '/services';
+          toastr.success('Serviço atualiado com successo.');
+          $window.location.href = '/services';
 
-          }).catch(function onError(sailsResponse) {
-
-              // Otherwise, this is some weird unexpected server error. 
-              // Or maybe your WIFI just went out.
-              console.error('sailsResponse: ', sailsResponse);
-          });
+        });
 
       } else {
           
-          $http.post('/service', $scope.newService)
-          .then(function onSuccess(sailsResponse) {
+          $http.post('/service', $scope.newService).then(function onSuccess(sailsResponse) {
 
             toastr.success('Serviço criado com successo.');
             $window.location.href = '/service/list';
 
-          }).catch(function onError(sailsResponse) {
-
-              // Otherwise, this is some weird unexpected server error. 
-              // Or maybe your WIFI just went out.
-              console.error('sailsResponse: ', sailsResponse);
           });
+          
       }
 
   	} else {

@@ -25,6 +25,7 @@ module.exports.routes = {
   /*************************************************************
   * JSON API ENDPOINTS                                         *
   *************************************************************/  
+  'POST /logger': 'LoggerController.create',
 
   'POST /customer': 'CustomerController.create',
   'PUT /customer': 'CustomerController.update',

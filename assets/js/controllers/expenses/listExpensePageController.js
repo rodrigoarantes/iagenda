@@ -67,7 +67,7 @@ angular.module('brushfire').controller('listExpensePageController', ['$scope', '
     endDate.set('month', selectedMonth);
     endDate.endOf('month');
 
-    ctrl.loadingResultsPromise = $http({
+    $http({
       url: '/expense/find',
       method: 'GET',
       params: {

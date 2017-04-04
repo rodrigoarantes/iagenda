@@ -20,7 +20,7 @@ angular.module('brushfire').controller('reportsPageController', ['$scope', '$htt
   function loadResults() {
 
 
-    ctrl.resultsPromise = $http({
+    $http({
       url: '/expense/yearlyReport',
       method: 'GET',
       params: {
