@@ -66,6 +66,7 @@ There will be more fields meant for the internal working of the application. Tha
 - **Expenses**
 
   - Fields:
+
     | Field name | required | type | attributes |
     | ------ | ------ | ------- | ------- |
     | name | true | string | maxLength: 80 |
