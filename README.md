@@ -1,5 +1,10 @@
 # iAgenda
 
+## Quick Intro
+This document describes pre-requisites and requisites for the iAgenda Project.
+Although basic, it resembles a real document that we tend to come across while working with small businesses.
+iAgenda would be an application used in order to help business owners or their employees to manage appointments with customers and basic profit and expense reports. 
+
 ### Pre-requisites:
 - It needs to be mobile-first. (It will be tested on iphone6)
 - Pay attention to production distribution because it will be evaluated.
@@ -93,3 +98,4 @@ Please note that there will be more fields that will be needed in order to compl
 
 
 
+Thanks
