@@ -26,7 +26,7 @@ Please note that there will be more fields that will be needed in order to compl
     - Attributes:
     Service(required), Customer(required), Scheduled Date and Time(required)
     
-    - BusinessDetails:  
+    - Business Details:  
         Screen: (See mockups in the mockups folder)
       - The user will see a list of possible times to schedule an appointment (it will look like a Calendar Day View). There will be a row for every fifteen minutes starting at 08:00 going up to 22:00 (e.g.: 08:00, 08:15, 08:30, and so on).
       - If the user clicks on a row, it will navigate to the screen in charge of adding appointments
@@ -40,7 +40,7 @@ Please note that there will be more fields that will be needed in order to compl
     - Attributes:
     name(required), phone1(required), phone2, comment
       
-  - BusinessDetails:
+  - Business Details:
       - Just a CRUD
       - Customer records must never get deleted, as opposed, They should get flagged as deleted
       - The landing page for this module must have a search field. The search term will be used for scanning the database columns name, phone1, phone2, and comment. The maximum amount of returned entries must be 20.
@@ -51,13 +51,13 @@ Please note that there will be more fields that will be needed in order to compl
   - Attributes:
     name(required), price(required), numberOfSessions(required)
 
-  - BusinessDetails:
+  - Business Details:
     - Just a CRUD
     - Services records must never get deleted... As opposed, They should get flagged as deleted
-    - NumberOfSessions are period of fifteen minutes(Make sure you make it flexible so you, the developer, can change it when requested by the customer - Ex.: the customer decides that 1 session is equivalent to half an hour). 
+    - NumberOfSessions are periods of fifteen minutes. Make sure you make it flexible so you, the developer, can change it when requested by the customer. 
     - NumberOfSessions field only allows positive values. If the user enter 2 it needs to show on the screen somewhere that it is equivalent to 30 minutes.
     - The landing page for this module must have a search field. The search term will be used for scanning the columns name. The maximum amount of returned entries must be 20.
-    - Price cannot be historically bound to the service. If the customer changes the service price today it cannot modify the service's price for old appointments since it will be used in the reports. You decide the better strategy for this required.
+    - Price cannot be historically bound to the service. If the customer changes the service price today it cannot modify the service price for old appointments since it will be used in the reports. You should decide the better strategy for this requirement.
     
     
 - **Expenses**
@@ -70,7 +70,7 @@ Please note that there will be more fields that will be needed in order to compl
     | value | true | numeric | min: 1 |
     | referredToDate | true | date |  |
       
-  - BusinessDetails:
+  - Business Details:
     - Just a CRUD
     - The landing page for this module will list all expenses for a month selected. There will be a select dropdown with the month list. It pull the entries based on the month selected. 
   
@@ -79,7 +79,16 @@ Please note that there will be more fields that will be needed in order to compl
     - Business Details:
         - The user will have on screen a year, starting and ending month dropdowns.
         - The result for the parameters above must be a table which will show the month values in the columns and the detail on the rows. In each row you need to show 'Gross Profit', 'Expenses', and 'Net Profit'
-        - IMPORTANT: The table output must present itself properly on both iphone and desktop windows.
+        
+        Example:
+        
+        |  | March | April | May |
+        | ------ | ------ | ------- | ------- |
+        | Gross Profit | 15000 | 12000 | 14000 |
+        | Expenses | 3000 | 2500 | 2800 |
+        | Net Profit | 12000 | 9500 | 11200 |
+        
+        - IMPORTANT: The output table must have a proper output on both iphone and desktop windows.
         
 
 
