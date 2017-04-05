@@ -38,4 +38,4 @@ jspm_packages
 
 .tmp/**
 
-#/assets/bower_components/**
+/assets/bower_components/**
