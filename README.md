@@ -5,7 +5,7 @@ This document describes pre-requisites and requisites for the iAgenda Project.
 Although basic, it resembles a real document that we tend to come across while working with small businesses.
 iAgenda would be an application used in order to help business owners or their employees to manage appointments with customers and basic profit and expense reports. 
 
-### Pre-requisites:
+### Pre-requisites and important information:
 - It needs to be mobile-first. (It will be tested on iphone6)
 - Pay attention to production distribution because it will be evaluated.
 - There are no specific requirements for the technology used on the front-end.
@@ -14,7 +14,7 @@ iAgenda would be an application used in order to help business owners or their e
 - The application will have a small number of users.
 - Emphasis will be placed on maintainability and fast prototyping.
 
-### Application Requirements by Module:
+### Application Requisites by Module:
 
 NOTE: The "Attributes" section below, shows only entries relevant to the customer that they would report as related directly to their business. Imagine these as fields the customer would tell you during a conversation for gathering requisites. 
 Please note that there will be more fields that will be needed in order to comply with all requirements described in the following pages. This part varies from developer to developer and will be evaluated.
@@ -36,7 +36,7 @@ Please note that there will be more fields that will be needed in order to compl
       - The user will see a list of possible times to schedule an appointment (it will look like a Calendar Day View). There will be a row for every fifteen minutes starting at 08:00 going up to 22:00 (e.g.: 08:00, 08:15, 08:30, and so on).
       - If the user clicks on a row, it will navigate to the screen in charge of adding appointments
       - If the user clicks an appointment, it will bring up a delete alert dialog.
-      - on that screen the user will see the time selected and the end time will be automatically calculated by the service's number Of sessions property. (Seee below in the 'Service' section). The user will then only need to select a service, and a customer in order to create an appointment entry. The date And time used to create an appointment must show up in the URL.
+      - on that screen the user will see the time selected and the end time will be automatically calculated by the service's number Of sessions property. (See below in the 'Service' section). The user will then only need to select a service, and a customer in order to create an appointment entry. The date And time used to create an appointment must show up in the URL.
       - At the top of the list of times there will be the date for the current selection. If the user clicks on the date, it will bring up a date picker where users will be able to jump between dates and fetch appointments in different days(Note: The listing shows only appointments for the day selected).
       - On top of it there will be the days of the week (From Sunday to Saturday). Clicking on the weekday fetches entries for that day. Make sure to highlight the weekday for the day selected.
       - The URL must show which day the user is viewing so he can bookmark it.
@@ -97,5 +97,4 @@ Please note that there will be more fields that will be needed in order to compl
         
 
 
-
-Thanks
+Thanks, Rodrigo Arantes.
