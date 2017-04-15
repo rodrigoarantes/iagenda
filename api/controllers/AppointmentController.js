@@ -94,6 +94,7 @@ module.exports = {
 	    	if (!jsonObject.service) return res.badRequest('Service object is required when creating an appointment.');
 
 	    	jsonObject.scheduledForEnd = moment(jsonObject.scheduledFor, 'YYYY-MM-DD HH:mm').add('minute', jsonObject.service.numberOfSessions * 15).format('YYYY-MM-DD HH:mm');
+	    	jsonObject.price = jsonObject.service.price;
 
 	    	Appointment.create(jsonObject).exec(function(err, createdObject){
 	    		if (err) return res.negotiate(err);
@@ -143,12 +144,32 @@ module.exports = {
 		Appointment.count({
  			where: {
  				deleted: 0,
- 				scheduledFor: {
- 					'>=': startDateTime,
- 				},
- 				scheduledForEnd: {
- 					'<=': endDateTime,
- 				}
+ 				
+ 				or : [
+ 					{
+ 						scheduledFor: {
+	 						'>=': startDateTime,
+		 				},
+		 				scheduledForEnd: {
+		 					'<=': endDateTime,
+		 				}
+ 					},
+
+ 					{
+ 						scheduledFor: {
+							'>': startDateTime,
+							'<': endDateTime
+		 				}
+ 					},
+
+ 					{
+ 						scheduledForEnd: {
+							'>': startDateTime,
+							'<': endDateTime
+		 				}
+ 					}
+ 				]
+ 				
  			}
  		})
  		.exec(function (err, appointmentsCount) {

@@ -37,6 +37,11 @@ module.exports = {
 
  	customer: {
  		model: 'customer',
+ 		required: false
+ 	},
+
+ 	customerJson: {
+ 		type: 'json',
  		required: true
  	}
 
