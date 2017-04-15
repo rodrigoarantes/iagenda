@@ -8,6 +8,13 @@
  * file.  If your repository will be publicly viewable, don't add
  * any private information to this file!
  *
+
+ * productionPostgresqlServer: {
+ *     adapter: 'sails-postgresql',
+ *     url: process.env.DATABASE_URL,
+ *     ssl: true
+ *   } 
+
  */
 
 module.exports = {
@@ -18,18 +25,17 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'productionPostgresqlServer'
+    connection: 'productionMysqlServer'
   },
   connections: {
-    productionPostgresqlServer: {
-      adapter: 'sails-postgresql',
-      url: process.env.DATABASE_URL,
-      ssl: true
+    productionMysqlServer: {
+      adapter: 'sails-mysql',
+      url: process.env.DO_DATABASE_URL
     } 
   },
   session: {
     adapter: 'redis',
-    url: process.env.REDISTOGO_URL
+    url: process.env.DO_REDIS_URL
   }
   // models: {
   //   connection: 'someMysqlServer'

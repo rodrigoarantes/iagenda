@@ -52,7 +52,7 @@ module.exports.connections = {
     user: 'root', //optional
     password: '1520472r17', //optional
     database: 'beautySaloon' //optional
-  },
+  }
 
   /***************************************************************************
   *                                                                          *
