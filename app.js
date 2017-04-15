@@ -38,6 +38,7 @@ try {
   return;
 }
 
+
 // --•
 // Try to get `rc` dependency (for loading `.sailsrc` files).
 var rc;
@@ -57,9 +58,10 @@ try {
 
 
 // Start server
-var config = rc('sails');
-if (process.env.NODE_ENV === 'production' || process.env.nogrunt) {
-  config.hooks = config.hooks || {};
-  config.hooks.grunt = false;
-}
-sails.lift(config);
+sails.lift(rc('sails'));
+// var config = rc('sails');
+// if (process.env.NODE_ENV === 'production' || process.env.nogrunt) {
+//   config.hooks = config.hooks || {};
+//   config.hooks.grunt = false;
+// }
+// sails.lift(config);
