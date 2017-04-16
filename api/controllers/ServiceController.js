@@ -72,8 +72,6 @@ module.exports = {
 				}]
 
 			},
-
-			limit: 20,
 			sort: 'name ASC'
 		}).exec(function (err, services) {
 
