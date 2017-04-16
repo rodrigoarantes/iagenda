@@ -15,8 +15,6 @@ var Passwords = require('machinepack-passwords');
 
  	login: function(req, res) {
 
- 		
- 		sails.log('hahaha - works');
 
  		User.findOne({
  			where: {
